@@ -130,14 +130,14 @@ class Board(object):
             for i in range(1, len(update)):
                 self.__raw_board[update[i].x][update[i].y] = -update[i].color
 
-            self.__liberty[x + 1][y] -= 1
-            self.__liberty[x + 1][y - 1] -= 1
-            self.__liberty[x][y - 1] -= 1
-            self.__liberty[x - 1][y - 1] -= 1
-            self.__liberty[x - 1][y] -= 1
-            self.__liberty[x - 1][y + 1] -= 1
-            self.__liberty[x][y + 1] -= 1
-            self.__liberty[x + 1][y + 1] -= 1
+            self.__liberty[x + 1][y] += 1
+            self.__liberty[x + 1][y - 1] += 1
+            self.__liberty[x][y - 1] += 1
+            self.__liberty[x - 1][y - 1] += 1
+            self.__liberty[x - 1][y] += 1
+            self.__liberty[x - 1][y + 1] += 1
+            self.__liberty[x][y + 1] += 1
+            self.__liberty[x + 1][y + 1] += 1
 
             disc_diff = len(update)
             self.__discs[ self.__current_color] -= disc_diff
@@ -301,14 +301,14 @@ class Board(object):
         x = point.x
         y = point.y
 
-        self.__liberty[x + 1][y] += 1
-        self.__liberty[x + 1][y - 1] += 1
-        self.__liberty[x][y - 1] += 1
-        self.__liberty[x - 1][y - 1] += 1
-        self.__liberty[x - 1][y] += 1
-        self.__liberty[x - 1][y + 1] += 1
-        self.__liberty[x][y + 1] += 1
-        self.__liberty[x + 1][y + 1] += 1
+        self.__liberty[x + 1][y] -= 1
+        self.__liberty[x + 1][y - 1] -= 1
+        self.__liberty[x][y - 1] -= 1
+        self.__liberty[x - 1][y - 1] -= 1
+        self.__liberty[x - 1][y] -= 1
+        self.__liberty[x - 1][y + 1] -= 1
+        self.__liberty[x][y + 1] -= 1
+        self.__liberty[x + 1][y + 1] -= 1
 
         disc_diff = len(update)
         self.__discs[ self.__current_color] += disc_diff

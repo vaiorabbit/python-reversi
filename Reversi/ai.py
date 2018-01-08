@@ -2,6 +2,7 @@ import sys
 from . import defs
 from . import board
 from . import evaluator
+from . import book_manager
 
 class _Move(defs.Point):
     def __init__(self, _x = 0, _y = 0, _eval_value = 0):
@@ -27,11 +28,17 @@ class AI(object):
 
 class AlphaBetaAI(AI):
     def move(self, board):
-        # movables = board.get_movable_pos() # TODO BookManager
-        _mvs = board.get_movable_pos() # TODO BookManager (BookManager::find returns copy of 'Point's (Not an actual reference for board.__movable_pos).)
+        _mvs = None
+        if defs.CONFIG_USE_BOOKMANAGER:
+            bm = book_manager.BookManager()
+            bm.read()
+            _mvs = bm.find(board)
+        else:
+            _mvs = board.get_movable_pos()
+
         movables = []
-        for _m in _mvs:
-            movables.append(defs.Point(_m.x, _m.y))
+        for m in _mvs:
+            movables.append(defs.Point(m.x, m.y))
 
         movables_count = len(movables)
 
@@ -47,7 +54,9 @@ class AlphaBetaAI(AI):
 
         self.current_evaluator = self.evaluators[evaluator.EVALUATOR_MID]
 
-        self.__sort(board, movables, self.presearch_depth)
+        if defs.CONFIG_USE_SORTING:
+            self.__sort(board, movables, self.presearch_depth)
+
         if defs.MAX_TURNS - board.get_turns() <= self.wld_depth:
             limit = sys.maxsize
             if defs.MAX_TURNS - board.get_turns() <= self.perfect_depth:

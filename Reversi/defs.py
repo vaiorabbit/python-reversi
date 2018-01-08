@@ -1,3 +1,9 @@
+CONFIG_USE_RANDOMIZATION = False
+CONFIG_USE_BOOKMANAGER = False
+CONFIG_USE_SORTING = True
+
+####################################################################################################
+
 BOARD_SIZE = 8
 MAX_TURNS = 60
 
